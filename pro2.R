@@ -1,4 +1,7 @@
-# Teamwork：s2626102 40%; 
+# Teamwork：
+# s2626102 Jingwen Jiang 40%, Write the main content of the code and Write comments.
+# s2752993 Ziyi Ye       30%, Discuss, modify, refine the code and Write comments.
+# s2646482 Chengpeng Dai 30%, Discuss, modify, refine the code and Write comments.
 
 
 ## Global purpose
@@ -17,6 +20,7 @@
 #  'deaths' and 's_deaths' mean the real and simulated deaths number in 310 days respectively
 #  'duration' means infection duration from log normal distribution for 29442 individuals
 
+days310 <- function(t,deaths){
 # Purpose:
 #   Adjust the length of the deaths vector to 310, corresponding to each day of the year.
 #
@@ -26,12 +30,13 @@
 #
 # Output:
 #   new_deaths: A vector of length 310, where each index represents a day of the year, and the element at each index represents the corresponding number of deaths.
-days310 <- function(t,deaths){
+  
   new_deaths<-numeric(310)
   new_deaths[t]=deaths
   return(new_deaths)
 }
 
+Pdist<-function(deaths,s_deaths){
 # Purpose:
 #   Calculate the goodness of fit between the observed (real) deaths and the simulated deaths using a modified Pearson statistic.
 #
@@ -41,11 +46,13 @@ days310 <- function(t,deaths){
 #
 # Output:
 #   p: A modified Pearson statistic that quantifies the difference between the real and simulated death counts.
-Pdist<-function(deaths,s_deaths){
+  
   P <- sum((deaths - s_deaths)^2 / pmax(1, s_deaths)) 
   return(P)
 }
 
+
+deconv<- function(t,deaths,n.rep=100,bs=FALSE,t0=NULL,plotting=TRUE){
 # Purpose:
 #   This function uses an iterative process to refine the estimates of individuals' infection times (t0). In each iteration, 
 #   a random adjustment is proposed for each individual infection time. The function then recalculates the estimated deaths by adding 
@@ -64,8 +71,8 @@ Pdist<-function(deaths,s_deaths){
 #   P_values: A vector of goodness-of-fit values (P) for each iteration; 
 #   inft: A matrix where each column corresponds to the estimated infection counts per day for each iteration.
 #   t0: A vector of the estimated infection times after the final iteration.
-deconv<- function(t,deaths,n.rep=100,bs=FALSE,t0=NULL,plotting=TRUE){
   deaths <- days310(t,deaths) # First change the length of vector to 310, align with the whole vectors when are in one year
+  
   days=1:80 # Disease duration
   densities <- dlnorm(days, meanlog = 3.152, sdlog = 0.451) # Generate a log-normal distribution
   probabilities <- densities / sum(densities) # Normalize the vector to get probabilities of infection-to-death duration
