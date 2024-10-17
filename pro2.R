@@ -21,7 +21,7 @@
 #  'duration' means infection duration from log normal distribution for 29442 individuals
 
 days310 <- function(t,deaths){
-# Purpose:
+# Purpose & Approach:
 #   Adjust the length of the deaths vector to 310, corresponding to each day of the year.
 #
 # Inputs:
@@ -37,7 +37,7 @@ days310 <- function(t,deaths){
 }
 
 Pdist<-function(deaths,s_deaths){
-# Purpose:
+# Purpose & Approach:
 #   Calculate the goodness of fit between the observed (real) deaths and the simulated deaths using a modified Pearson statistic.
 #
 # Inputs:
@@ -53,7 +53,7 @@ Pdist<-function(deaths,s_deaths){
 
 
 deconv<- function(t,deaths,n.rep=100,bs=FALSE,t0=NULL,plotting=TRUE){
-# Purpose:
+# Purpose & Approach:
 #   This function uses an iterative process to refine the estimates of individuals' infection times (t0). In each iteration, 
 #   a random adjustment is proposed for each individual infection time. The function then recalculates the estimated deaths by adding 
 #   the infection-to-death duration (which are randomly sampled in each iteration). The estimated deaths are compared with the real deaths, and if the goodness-of-fit 
