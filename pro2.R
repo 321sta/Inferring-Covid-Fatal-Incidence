@@ -71,8 +71,8 @@ deconv<- function(t,deaths,n.rep=100,bs=FALSE,t0=NULL,plotting=TRUE){
 #   P_values: A vector of goodness-of-fit values (P) for each iteration; 
 #   inft: A matrix where each column corresponds to the estimated infection counts per day for each iteration.
 #   t0: A vector of the estimated infection times after the final iteration.
+ 
   deaths <- days310(t,deaths) # First change the length of vector to 310, align with the whole vectors when are in one year
-  
   days=1:80 # Disease duration
   densities <- dlnorm(days, meanlog = 3.152, sdlog = 0.451) # Generate a log-normal distribution
   probabilities <- densities / sum(densities) # Normalize the vector to get probabilities of infection-to-death duration
